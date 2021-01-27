@@ -1,0 +1,5 @@
+"setosa" "versicolor" "virginica" "MeanDecreaseAccuracy" "MeanDecreaseGini" "variable"
+56.71 85.27 76.09 93.09 33.35 "Petal.Length"
+58.13 66.89 64.77 78.71 28.3 "Petal.Width"
+18 10.08 23.69 26.01 7.26 "Sepal.Length"
+10.8 8.32 5.63 12.8 1.07 "Sepal.Width"
