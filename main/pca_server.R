@@ -44,7 +44,10 @@ pca_group <- eventReactive(input$submit_pca,{
       group_pca <- c(group_pca,c(group_input[[1]][i]))
     }
     
-    group_df <- user_data_pca()[,group_pca] %>% as.data.frame()
+    
+    group_df <- dplyr::select(user_data_pca(),group_pca) %>% as.data.frame()
+    
+    #group_df <- user_data_pca()[,group_pca] %>% as.data.frame()
     
     colnames(group_df) <- group_pca
   }
@@ -63,7 +66,7 @@ pca_number <- eventReactive(input$submit_pca,{
       group_pca <- c(group_pca,c(group_input[[1]][i]))
     }
     
-    group_df <- dplyr::select(user_data_pca(),-group_pca)
+    group_df <- dplyr::select(user_data_pca(),-group_pca) %>% as.data.frame()
     
   }
   group_df
@@ -262,10 +265,8 @@ pca_point_plot <- eventReactive(input$submit_pca,{
                                      'none',input$pca_legend_position),
             panel.background = element_blank(),
             panel.grid = element_blank(),
-            axis.text = element_text(color = 'black',size = 10, 
-                                     family = 'Arial', face = 'plain'),
-            axis.title.x = element_text(color = 'black',size = 10,
-                                        family = 'Arial', face = 'plain'),
+            axis.text = element_text(color = 'black',size = 10),
+            axis.title.x = element_text(color = 'black',size = 10),
             axis.ticks = element_line(color = 'black'))
     
     
@@ -285,8 +286,8 @@ pca_point_plot <- eventReactive(input$submit_pca,{
     
     # 适当扩大坐标轴范围
     p_pca_2 <- p_pca_2 + 
-      ylim(min(plot_df[,3])*1.3, max(plot_df[,3]*1.1)) +
-      xlim(min(plot_df[,2])*1.1, max(plot_df[,2]*1.1))
+      ylim(min(plot_df[,ncol(plot_df)])*1.2, max(plot_df[,ncol(plot_df)]*1.2)) +
+      xlim(min(plot_df[,ncol(plot_df) - 1])*1.2, max(plot_df[,ncol(plot_df) - 1]*1.2))
     
     
     # permanova分析
@@ -299,11 +300,10 @@ pca_point_plot <- eventReactive(input$submit_pca,{
                            permutations = 999)
       per_res <- per[["aov.tab"]]
       # 绘图结果加入permanova结果
-      p_pca_2 <- p_pca_2 + annotate('text',1.8,min(min(plot_df[,3])*1.2),
+      p_pca_2 <- p_pca_2 + annotate('text',1.8,min(plot_df[,ncol(plot_df) - 1])*1.2,
                                     label = paste('R2 = ',round(per_res[1,5],4),
                                                   '  P = ',round(per_res[1,6],4),
-                                                  sep = ''),
-                                    color = 'black',size = 3, family = 'Arial', face = 'plain')
+                                                  sep = ''),color = 'black',size = 3)
     }else{
       p_pca_2 <- p_pca_2
     }
