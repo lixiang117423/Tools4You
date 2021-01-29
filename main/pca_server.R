@@ -292,15 +292,16 @@ pca_point_plot <- eventReactive(input$submit_pca,{
     
     # permanova分析
     if (input$var_perm_ana_pca == 'TRUE') {
-      per_df <- plot_df
-      colnames(per_df)[1] <- 'group'
-      per <- vegan::adonis(per_df[,(length(group_pca)+1):ncol(per_df)] ~ group,
+      per_df <- user_data_pca()
+      per_df <- per_df[,1:(ncol(pca_number()) + 1)]
+      colnames(per_df)[ncol(per_df)] <- 'group'
+      per <- vegan::adonis(per_df[,1:(ncol(per_df)-1)] ~ group,
                            data = per_df,
                            method = 'bray',
                            permutations = 999)
       per_res <- per[["aov.tab"]]
       # 绘图结果加入permanova结果
-      p_pca_2 <- p_pca_2 + annotate('text',1.8,min(plot_df[,ncol(plot_df) - 1])*1.2,
+      p_pca_2 <- p_pca_2 + annotate('text',1.8,min(plot_df[,ncol(plot_df)])*1.2,
                                     label = paste('R2 = ',round(per_res[1,5],4),
                                                   '  P = ',round(per_res[1,6],4),
                                                   sep = ''),color = 'black',size = 3)

@@ -102,10 +102,8 @@ pcoa_stone_plot <- eventReactive(input$submit_pcoa,{
       theme(legend.position = 'none',
             panel.background = element_blank(),
             panel.grid = element_blank(),
-            axis.text = element_text(color = 'black',size = 10, 
-                                     family = 'Arial', face = 'plain'),
-            axis.title.x = element_text(color = 'black',size = 10,
-                                        family = 'Arial', face = 'plain'),
+            axis.text = element_text(color = 'black',size = 10),
+            axis.title.x = element_text(color = 'black',size = 10),
             axis.ticks = element_line(color = 'black'))
     
     
@@ -252,14 +250,16 @@ pcoa_point_plot <- eventReactive(input$submit_pcoa,{
     
     # X轴
     if (input$pcoa_xaxis == '') {
-      p_pcoa_2 <- p_pcoa_2 + labs(x = paste(colnames(plot_df)[2],'(',sde[sde$PC == colnames(plot_df)[2],]$percent,'%)'))
+      p_pcoa_2 <- p_pcoa_2 + 
+        labs(x = paste(colnames(plot_df)[ncol(plot_df)-1],'(',sde[sde$PC == colnames(plot_df)[ncol(plot_df)-1],]$percent,'%)'))
     }else{
       p_pcoa_2 <- p_pcoa_2 + labs(x = input$pcoa_xaxis)
     }
     
     # Y轴
     if (input$pcoa_yaxis == '') {
-      p_pcoa_2 <- p_pcoa_2 + labs(y = paste(colnames(plot_df)[3],'(',sde[sde$PC == colnames(plot_df)[3],]$percent,'%)'))
+      p_pcoa_2 <- p_pcoa_2 + 
+        labs(y = paste(colnames(plot_df)[ncol(plot_df)],'(',sde[sde$PC == colnames(plot_df)[ncol(plot_df)],]$percent,'%)'))
     }else{
       p_pcoa_2 <- p_pcoa_2 + labs(y = input$pcoa_yaxis)
     }
@@ -273,10 +273,8 @@ pcoa_point_plot <- eventReactive(input$submit_pcoa,{
                                      'none',input$pcoa_legend_position),
             panel.background = element_blank(),
             panel.grid = element_blank(),
-            axis.text = element_text(color = 'black',size = 10, 
-                                     family = 'Arial', face = 'plain'),
-            axis.title.x = element_text(color = 'black',size = 10,
-                                        family = 'Arial', face = 'plain'),
+            axis.text = element_text(color = 'black',size = 10),
+            axis.title.x = element_text(color = 'black',size = 10),
             axis.ticks = element_line(color = 'black'))
     
     
@@ -295,28 +293,29 @@ pcoa_point_plot <- eventReactive(input$submit_pcoa,{
     }
     
     # 适当扩大坐标轴范围
-    p_pcoa_2 <- p_pcoa_2 + 
-      ylim(min(plot_df[,3])*1.3, max(plot_df[,3]*1.1)) +
-      xlim(min(plot_df[,2])*1.1, max(plot_df[,2]*1.1))
+    p_pcoa_2 <- p_pcoa_2 +  
+      ylim(min(plot_df[,ncol(plot_df)])*1.2, max(plot_df[,ncol(plot_df)]*1.2)) +
+      xlim(min(plot_df[,ncol(plot_df) - 1])*1.2, max(plot_df[,ncol(plot_df) - 1]*1.2))
+    
     
     
     # permanova分析
     if (input$var_perm_ana_pcoa == 'TRUE') {
-      per_df <- plot_df
-      colnames(per_df)[1] <- 'group'
-      per <- vegan::adonis(per_df[,(length(group_pcoa)+1):ncol(per_df)] ~ group,
+      per_df <- user_data_pcoa()
+      per_df <- per_df[,1:(ncol(pcoa_number()) + 1)]
+      colnames(per_df)[ncol(per_df)] <- 'group'
+      per <- vegan::adonis(per_df[,1:(ncol(per_df)-1)] ~ group,
                            data = per_df,
                            method = 'bray',
                            permutations = 999)
       per_res <- per[["aov.tab"]]
       # 绘图结果加入permanova结果
       p_pcoa_2 <- p_pcoa_2 + annotate('text',
-                                      max(plot_df[,2])*0.7,
-                                      min(plot_df[,3])*1.2,
+                                      max(plot_df[,ncol(plot_df)-1])*0.6,
+                                      min(plot_df[,ncol(plot_df)]),
                                       label = paste('R2 = ',round(per_res[1,5],4),
                                                     '  P = ',round(per_res[1,6],4),
-                                                    sep = ''),
-                                      color = 'black',size = 3, family = 'Arial', face = 'plain')
+                                                    sep = ''),color = 'black',size = 3)
     }else{
       p_pcoa_2 <- p_pcoa_2
     }
