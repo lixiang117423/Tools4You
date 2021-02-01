@@ -16,7 +16,7 @@ user_data_ttest <- reactive({
                             stringsAsFactors = TRUE,
                             encoding = 'UTF-8')
   colnames(table_in_test)[1] <- 'group'
-  table_in_test <- reshape2::melt(table_in_test, id.vars = 1)
+  table_in_test <- reshape2::melt(table_in_test, id.vars = 1) %>% na.omit()
   table_in_test <- table_in_test[,c(1,3)]
   colnames(table_in_test) <- c('group','value')
   table_in_test <<- table_in_test
