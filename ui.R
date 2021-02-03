@@ -40,9 +40,9 @@ if (TRUE) {
                                         menuSubItem('PCoA',
                                                     tabName = 'pcoa',
                                                     icon = icon('paper-plane')),
-                                        menuSubItem('NMDS',
-                                                    tabName = 'nmds',
-                                                    icon = icon('paper-plane')),
+                                        #menuSubItem('NMDS',
+                                        #tabName = 'nmds',
+                                        #icon = icon('paper-plane')),
                                         menuSubItem('PLS-DA',
                                                     tabName = 'plsda',
                                                     icon = icon('paper-plane')),
@@ -92,7 +92,7 @@ body <- dashboardBody(
     # 暂未调试
     tabItem(tabName = 'nmds',source('./main/nmds_ui.R',local = TRUE,encoding = 'UTF-8')$value),
     # 暂未调试
-    tabItem(tabName = 'plsda',source('./main/plsda_ui.R',local = TRUE,encoding = 'UTF-8')$value),
+    #tabItem(tabName = 'plsda',source('./main/plsda_ui.R',local = TRUE,encoding = 'UTF-8')$value),
     # 暂未调试
     tabItem(tabName = 'oplsda',source('./main/oplsda_ui.R',local = TRUE,encoding = 'UTF-8')$value),
     # 暂未调试

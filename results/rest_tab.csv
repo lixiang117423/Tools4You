@@ -1,5 +1,4 @@
-"setosa","versicolor","virginica","MeanDecreaseAccuracy","MeanDecreaseGini","variable"
-56.71,85.27,76.09,93.09,33.35,"Petal.Length"
-58.13,66.89,64.77,78.71,28.3,"Petal.Width"
-18,10.08,23.69,26.01,7.26,"Sepal.Length"
-10.8,8.32,5.63,12.8,1.07,"Sepal.Width"
+"group","number","sum","mean","SD","SE","significance","pvalue"
+"setosa",5,16.4,3.28,0.2588,0.1158,"c",8.43575459102757e-11
+"versicolor",5,6.6,1.32,0.2168,0.097,"b",8.43575459102757e-11
+"virginica",5,1.2,0.24,0.114,0.051,"a",8.43575459102757e-11

@@ -17,8 +17,9 @@ user_data_anova <- reactive({
                             stringsAsFactors = TRUE,
                             encoding = 'UTF-8')
   colnames(table_in_test)[1] <- 'group'
-  table_in_test <- reshape2::melt(table_in_test, id.vars = 1) %>% na.omit()
-  table_in_test <- table_in_test[,c(1,3)]
+  table_in_test <- reshape2::melt(table_in_test, id.vars = 1)  %>%
+    dplyr::select(c(1,3)) %>% 
+    na.omit()
   colnames(table_in_test) <- c('group','value')
   table_in_test <<- table_in_test
 })
@@ -127,8 +128,14 @@ plot_res_anova <- eventReactive(input$submit_anova,{
       df$significance <- 'NS'
     }
     
+    # 柱子顺序
+    order <- c()
+    axis_order <- stringr::str_split(input$axis_order,',')
+    for (i in 1:length(axis_order[[1]])) {
+      order <- c(order, axis_order[[1]][i])
+    }
     
-    
+    # 开始绘图
     if (input$point_or_not_anova == 'TRUE') {
       df_plot <- df
       p_anova <- ggplot(df_plot) +
@@ -141,6 +148,14 @@ plot_res_anova <- eventReactive(input$submit_anova,{
         geom_text(aes(group,(mean + ifelse(input$anova_err_bar == 'SD',SD,SE))*1.15,
                       label = significance)) +
         geom_jitter(aes(group, value),width = 0.05)
+      
+      if (input$axis_order == '') {
+        p_anova <- p_anova
+      }else{
+        p_anova <- p_anova +
+          scale_x_discrete(limit = order)
+      }
+
       
     }else{
       df_plot <- df[,-2]
@@ -168,13 +183,11 @@ plot_res_anova <- eventReactive(input$submit_anova,{
       scale_y_continuous(expand = c(0,0)) +
       scale_fill_aaas() +
       theme_classic() +
-      theme(legend.position = ifelse(input$legend_anova == 'FALSE','none','right'),
+      theme(legend.position = 'none',
             panel.background = element_blank(),
             panel.grid = element_blank(),
-            axis.text = element_text(color = 'black',size = 10, 
-                                     family = 'Arial', face = 'plain'),
-            axis.title.x = element_text(color = 'black',size = 10,
-                                        family = 'Arial', face = 'plain'),
+            axis.text = element_text(color = 'black',size = 10),
+            axis.title.x = element_text(color = 'black',size = 10),
             axis.ticks = element_line(color = 'black'))
     
     

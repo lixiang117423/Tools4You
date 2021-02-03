@@ -35,7 +35,7 @@ plsda_res <- reactive({
                         df_plsda$group,
                         predI = 1, 
                         orthoI = NA)
-  plsda <<- plsda
+  return(plsda)
 })
 
 
@@ -60,6 +60,7 @@ df_table_plsda <- eventReactive(input$submit_plsda,{
     data.table::fwrite(user_records,file = './www/user records.txt')
     
     vip_score <- as.data.frame(plsda_res()@vipVn)
+    
     colnames(vip_score) <- 'VIP值'
     vip_score$metabolites <- rownames(vip_score)
     vip_score <- vip_score[,c('metabolites','VIP值')]
