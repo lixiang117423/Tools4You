@@ -99,33 +99,59 @@ plot_res_ttest <- eventReactive(input$submit_ttest,{
   if (input$submit_ttest > 0) {
     p_ttest <- ggplot(df_table_ttest(), 
                       aes(group, mean,fill = group)) +
-      geom_bar(stat = 'identity',width = 0.4) +
-      geom_errorbar(aes(group, 
-                        ymin = mean - ifelse(input$ttest_err_bar == 'SD',SD,SE), 
-                        ymax = mean + ifelse(input$ttest_err_bar == 'SD',SD,SE)),
-                    width = 0.1) +
-      geom_text(aes(group,(mean + ifelse(input$ttest_err_bar == 'SD',SD,SE))*1.1,
-                    label = significance)) +
-      geom_hline(yintercept = (max(df_table_ttest()$mean) + 
-                                 ifelse(input$ttest_err_bar == 'SD',
-                                        max(df_table_ttest()$SD),max(df_table_ttest()$SE)))*1.3, 
-                 color = 'white') +
-      labs(x = ifelse(input$ttest_fig_x_axis == '','group',input$ttest_fig_x_axis),
-           y = ifelse(input$ttest_fig_y_axis == '','group',input$ttest_fig_y_axis),
-           title = input$ttest_fig_title) +
-      scale_y_continuous(expand = c(0,0)) +
-      scale_fill_aaas() +
-      theme_classic() +
-      theme(legend.position = 'none',
-            panel.background = element_blank(),
-            panel.grid = element_blank(),
-            axis.text = element_text(color = 'black',size = 10, 
-                                     family = 'Arial', face = 'plain'),
-            axis.title.x = element_text(color = 'black',size = 10,
-                                        family = 'Arial', face = 'plain'),
-            axis.ticks = element_line(color = 'black'))
+      geom_bar(stat = 'identity',width = 0.4)
     
+    if (input$ttest_err_bar == 'SD') {
+      p_ttest <- p_ttest + 
+        geom_errorbar(aes(group, 
+                          ymin = mean - SD, 
+                          ymax = mean + SD),
+                      width = 0.1) +
+        geom_text(aes(group,(mean + SD)*1.1,
+                      label = significance)) +
+        geom_hline(yintercept = (max(df_table_ttest()$mean) + max(df_table_ttest()$SD))*1.3, 
+                   color = 'white') +
+        labs(x = ifelse(input$ttest_fig_x_axis == '','group',input$ttest_fig_x_axis),
+             y = ifelse(input$ttest_fig_y_axis == '','group',input$ttest_fig_y_axis),
+             title = input$ttest_fig_title) +
+        scale_y_continuous(expand = c(0,0)) +
+        scale_fill_aaas() +
+        theme_prism(base_size = 14) +
+        theme(legend.position = 'none',
+              panel.background = element_blank(),
+              panel.grid = element_blank(),
+              axis.text = element_text(color = 'black',size = 10, 
+                                       family = 'Arial', face = 'plain'),
+              axis.title.x = element_text(color = 'black',size = 10,
+                                          family = 'Arial', face = 'plain'),
+              axis.ticks = element_line(color = 'black'))
+    }else{
+      p_ttest <- p_ttest + 
+        geom_errorbar(aes(group, 
+                          ymin = mean - SE, 
+                          ymax = mean + SE),
+                      width = 0.1) +
+        geom_text(aes(group,(mean + SE)*1.1,
+                      label = significance)) +
+        geom_hline(yintercept = (max(df_table_ttest()$mean) + max(df_table_ttest()$SE))*1.3, 
+                   color = 'white') +
+        labs(x = ifelse(input$ttest_fig_x_axis == '','group',input$ttest_fig_x_axis),
+             y = ifelse(input$ttest_fig_y_axis == '','group',input$ttest_fig_y_axis),
+             title = input$ttest_fig_title) +
+        scale_y_continuous(expand = c(0,0)) +
+        scale_fill_aaas() +
+        theme_prism(base_size = 14) +
+        theme(legend.position = 'none',
+              panel.background = element_blank(),
+              panel.grid = element_blank(),
+              axis.text = element_text(color = 'black',size = 10, 
+                                       family = 'Arial', face = 'plain'),
+              axis.title.x = element_text(color = 'black',size = 10,
+                                          family = 'Arial', face = 'plain'),
+              axis.ticks = element_line(color = 'black'))
+    }
     
+
     # 保存图片
     filename <- ifelse(input$ttest_fig_res_filetype == '.pdf','res_fig.pdf',
                        ifelse(input$ttest_fig_res_filetype == '.png','res_fig.png',

@@ -98,7 +98,7 @@ pcoa_stone_plot <- eventReactive(input$submit_pcoa,{
       scale_y_continuous(expand = c(0,0),breaks = seq(0,100,10)) +
       scale_fill_aaas() +
       labs(y = '解释度（%）')+
-      theme_classic() +
+      theme_prism(base_size = 14) +
       theme(legend.position = 'none',
             panel.background = element_blank(),
             panel.grid = element_blank(),
@@ -173,7 +173,7 @@ pcoa_point_plot <- eventReactive(input$submit_pcoa,{
                  alpha = input$pcoa_point_transparency) +
       scale_y_continuous(expand = c(0,0)) +
       scale_color_aaas() +
-      theme_classic()
+      theme_prism(base_size = 14)
     
     # 绘图样式设置
     if (input$select_plot_type_pcoa == 1) {
@@ -200,7 +200,7 @@ pcoa_point_plot <- eventReactive(input$submit_pcoa,{
         geom_segment(aes(xend = cent1, yend = cent2), show.legend = FALSE) +
         scale_y_continuous(expand = c(0,0)) +
         scale_color_aaas() +
-        theme_classic()
+        theme_prism(base_size = 14)
     }else{
       border_df <- dplyr::select(plot_df, c(score_pcoa,input$pcoa_point_color))
       group_border <- ddply(border_df, input$pcoa_point_color, 
@@ -216,7 +216,7 @@ pcoa_point_plot <- eventReactive(input$submit_pcoa,{
         geom_polygon(data = group_border, alpha = 0.3, show.legend = F) +
         scale_y_continuous(expand = c(0,0)) +
         scale_color_aaas() +
-        theme_classic()
+        theme_prism(base_size = 14)
     }
     
     

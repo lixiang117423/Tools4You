@@ -21,7 +21,7 @@ package_list = c(
   'plyr',
   'vegan',
   'ggplotify',
-  'ggcor',
+  #'ggcor',
   'ggpmisc',
   #'ropls',
   'WGCNA',
@@ -69,6 +69,7 @@ library(randomForest)
 library(caret)
 library(tidymodels)
 library(export)
+library(ggprism)
 
 
 

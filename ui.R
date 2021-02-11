@@ -40,12 +40,12 @@ if (TRUE) {
                                         menuSubItem('PCoA',
                                                     tabName = 'pcoa',
                                                     icon = icon('paper-plane')),
-                                        #menuSubItem('NMDS',
-                                        #tabName = 'nmds',
-                                        #icon = icon('paper-plane')),
-                                        menuSubItem('PLS-DA',
-                                                    tabName = 'plsda',
+                                        menuSubItem('NMDS',
+                                                    tabName = 'nmds',
                                                     icon = icon('paper-plane')),
+                                        #menuSubItem('PLS-DA',
+                                        #tabName = 'plsda',
+                                        #icon = icon('paper-plane')),
                                         menuSubItem('OPLS-DA',
                                                     tabName = 'oplsda',
                                                     icon = icon('paper-plane')),
@@ -66,9 +66,9 @@ if (TRUE) {
                                                     tabName = 'permanova',
                                                     icon = icon('paper-plane'))
                                         ),
-                               menuItem('数据可视化',icon = icon('list')
-                                        
-                               )))
+                               menuItem('数据可视化',icon = icon('list')),
+                               menuItem('分子生物学',icon = icon('list'))
+                               ))
   
 }
 

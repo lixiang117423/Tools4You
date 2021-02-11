@@ -104,7 +104,7 @@ nmds_point_plot <- eventReactive(input$submit_nmds,{
                  alpha = input$nmds_point_transparency) +
       scale_y_continuous(expand = c(0,0)) +
       scale_color_aaas() +
-      theme_classic()
+      theme_prism(base_size = 14)
     
     
     # 绘图样式设置
@@ -131,7 +131,7 @@ nmds_point_plot <- eventReactive(input$submit_nmds,{
         geom_segment(aes(xend = cent1, yend = cent2), show.legend = FALSE) +
         scale_y_continuous(expand = c(0,0)) +
         scale_color_aaas() +
-        theme_classic()
+        theme_prism(base_size = 14)
     }else{
       border_df <- plot_df[,c(2,3,1)]
       group_border <- ddply(border_df, 'group', 
@@ -145,7 +145,7 @@ nmds_point_plot <- eventReactive(input$submit_nmds,{
         geom_polygon(data = group_border, alpha = 0.3, show.legend = F) +
         scale_y_continuous(expand = c(0,0)) +
         scale_color_aaas() +
-        theme_classic()
+        theme_prism(base_size = 14)
     }
     
     # 是否添加横线

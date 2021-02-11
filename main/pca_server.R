@@ -100,7 +100,7 @@ pca_stone_plot <- eventReactive(input$submit_pca,{
       scale_fill_aaas() +
       labs(x = '主成分',
            y = '主成分解释度（%）')+
-      theme_classic() +
+      theme_prism(base_size = 14) +
       theme(legend.position = 'none')
     
     # 保存图片
@@ -210,7 +210,7 @@ pca_point_plot <- eventReactive(input$submit_pca,{
         geom_polygon(data = group_border, alpha = 0.3, show.legend = F) +
         scale_y_continuous(expand = c(0,0)) +
         scale_color_aaas() +
-        theme_classic()
+        theme_prism(base_size = 14)
     }
     
     # 是否添加横线

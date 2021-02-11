@@ -1,4 +1,3 @@
-"group","number","sum","mean","SD","SE","significance","pvalue"
-"setosa",5,16.4,3.28,0.2588,0.1158,"c",8.43575459102757e-11
-"versicolor",5,6.6,1.32,0.2168,0.097,"b",8.43575459102757e-11
-"virginica",5,1.2,0.24,0.114,0.051,"a",8.43575459102757e-11
+"group","number","sum","mean","SD","SE","pvalue","significance"
+"setosa",50,12.3,0.246,0.1054,0.0149,0,""
+"versicolor",50,66.3,1.326,0.1978,0.028,0,"***"

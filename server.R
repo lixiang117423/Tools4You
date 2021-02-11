@@ -28,7 +28,7 @@ shinyServer(function(input, output, session){
   
   # plsda
   # 调试成功
-  #source('./main/plsda_server.R', local = TRUE, encoding = 'UTF-8')
+  source('./main/plsda_server.R', local = TRUE, encoding = 'UTF-8')
   
   # oplsda
   # 调试成功

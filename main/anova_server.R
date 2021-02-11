@@ -140,15 +140,28 @@ plot_res_anova <- eventReactive(input$submit_anova,{
       df_plot <- df
       p_anova <- ggplot(df_plot) +
         geom_bar(aes(group, mean/number,fill = group),
-                 stat = 'identity',width = input$width_anova_bar) +
-        geom_errorbar(aes(group,
-                          ymin = mean - ifelse(input$anova_err_bar == 'SD',SD,SE), 
-                          ymax = mean + ifelse(input$anova_err_bar == 'SD',SD,SE)),
-                      width = 0.2) +
-        geom_text(aes(group,(mean + ifelse(input$anova_err_bar == 'SD',SD,SE))*1.15,
-                      label = significance)) +
-        geom_jitter(aes(group, value),width = 0.05)
+                 stat = 'identity',width = input$width_anova_bar)
       
+      if (input$anova_err_bar == 'SD') {
+        p_anova <- p_anova +
+          geom_errorbar(aes(group,
+                            ymin = mean - SD, 
+                            ymax = mean + SD),
+                        width = 0.2) +
+          geom_text(aes(group,(mean + SD)*1.15,
+                        label = significance)) +
+          geom_jitter(aes(group, value),width = 0.05)
+      }else{
+        p_anova <- p_anova +
+          geom_errorbar(aes(group,
+                            ymin = mean - SE, 
+                            ymax = mean + SE),
+                        width = 0.2) +
+          geom_text(aes(group,(mean + SE)*1.15,
+                        label = significance)) +
+          geom_jitter(aes(group, value),width = 0.05)
+      }
+
       if (input$axis_order == '') {
         p_anova <- p_anova
       }else{
@@ -182,7 +195,7 @@ plot_res_anova <- eventReactive(input$submit_anova,{
            title = input$anova_fig_title) +
       scale_y_continuous(expand = c(0,0)) +
       scale_fill_aaas() +
-      theme_classic() +
+      theme_prism(base_size = 14) +
       theme(legend.position = 'none',
             panel.background = element_blank(),
             panel.grid = element_blank(),
@@ -210,25 +223,10 @@ plot_res_anova <- eventReactive(input$submit_anova,{
         scale_fill_manual(values = fill_cor)
     }
     
+    p = qplot(iris$Sepal.Length)
     
     # 保存图片
-    filename <- ifelse(input$anova_fig_res_filetype == '.pdf','res_fig.pdf',
-                       ifelse(input$anova_fig_res_filetype == '.png','res_fig.png',
-                              ifelse(input$anova_fig_res_filetype == '.jpg','res_fig.jpg',
-                                     ifelse(input$anova_fig_res_filetype == '.tiff','res_fig.tiff','res_fig.eps'))))
-    
-    if (input$anova_fig_res_filetype == '.pdf') {
-      ggsave(p_anova, 
-             filename = paste('./results/', filename, sep = ''),
-             width = input$anova_fig_wdith,
-             height = input$anova_fig_height,
-             device = cairo_pdf)
-    }else{
-      ggsave(p_anova, 
-             filename = paste('./results/', filename, sep = ''),
-             width = input$anova_fig_wdith,
-             height = input$anova_fig_height)
-    }
+    export::graph2ppt(p, file = './results/res_fig.pptx')
   }
   p_anova # 返回图
 })
@@ -273,6 +271,8 @@ output$download_figure__anova <- downloadHandler(
       file.copy('./results/res_fig.jpg',file)
     }else if (input$anova_fig_res_filetype == '.tiff') {
       file.copy('./results/res_fig.tiff',file)
+    }else if (input$anova_fig_res_filetype == '.pptx') {
+      file.copy('./results/res_fig.pptx',file)
     }else{
       file.copy('./results/res_fig.eps',file)
     }
