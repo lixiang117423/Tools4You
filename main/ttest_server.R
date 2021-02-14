@@ -116,14 +116,12 @@ plot_res_ttest <- eventReactive(input$submit_ttest,{
              title = input$ttest_fig_title) +
         scale_y_continuous(expand = c(0,0)) +
         scale_fill_aaas() +
-        theme_prism(base_size = 14) +
+        theme_prism(base_size = 14, base_family = 'GB1') +
         theme(legend.position = 'none',
               panel.background = element_blank(),
               panel.grid = element_blank(),
-              axis.text = element_text(color = 'black',size = 10, 
-                                       family = 'Arial', face = 'plain'),
-              axis.title.x = element_text(color = 'black',size = 10,
-                                          family = 'Arial', face = 'plain'),
+              axis.text = element_text(color = 'black',size = 10),
+              axis.title.x = element_text(color = 'black',size = 10),
               axis.ticks = element_line(color = 'black'))
     }else{
       p_ttest <- p_ttest + 
@@ -140,14 +138,12 @@ plot_res_ttest <- eventReactive(input$submit_ttest,{
              title = input$ttest_fig_title) +
         scale_y_continuous(expand = c(0,0)) +
         scale_fill_aaas() +
-        theme_prism(base_size = 14) +
+        theme_prism(base_size = 14, base_family = 'GB1') +
         theme(legend.position = 'none',
               panel.background = element_blank(),
               panel.grid = element_blank(),
-              axis.text = element_text(color = 'black',size = 10, 
-                                       family = 'Arial', face = 'plain'),
-              axis.title.x = element_text(color = 'black',size = 10,
-                                          family = 'Arial', face = 'plain'),
+              axis.text = element_text(color = 'black',size = 10),
+              axis.title.x = element_text(color = 'black',size = 10),
               axis.ticks = element_line(color = 'black'))
     }
     
