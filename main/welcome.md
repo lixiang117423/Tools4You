@@ -14,11 +14,12 @@ geometry: margin=4cm
 请点击下载每个页面中的示例数据，参照示例数据整理自己的数据后上传，然后选择参数即可。  
 点击下方链接查看具体教程：
 
-- [t检验](http://www.blog4xiang.world/2021/01/15/Tools4You%E6%95%99%E7%A8%8B1-0%E2%80%94%E2%80%94%E5%85%B3%E4%BA%8ETools4You/)
-- [相关性分析](http://www.blog4xiang.world/2021/01/18/Tools4You%E6%95%99%E7%A8%8B2-%E7%9B%B8%E5%85%B3%E6%80%A7%E5%88%86%E6%9E%90/)
-- [线性回归分析](http://www.blog4xiang.world/2021/01/19/Tools4You%E6%95%99%E7%A8%8B3%EF%BC%9A%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E5%88%86%E6%9E%90/)
-- [PCA](http://www.blog4xiang.world/2021/01/28/Tools4You%E6%95%99%E7%A8%8B4%EF%BC%9APCA/)
-- [PCoA](http://www.blog4xiang.world/2021/01/29/Tools4You%E6%95%99%E7%A8%8B5%EF%BC%9APCoA/)
+- [t检验](https://www.blog4xiang.world/posts/c5bde688.html)
+- [相关性分析](https://www.blog4xiang.world/posts/b370ab0f.html)
+- [线性回归分析](https://www.blog4xiang.world/posts/de26be17.html)
+- [PCA](https://www.blog4xiang.world/posts/b211c402.html)
+- [PCoA](https://www.blog4xiang.world/posts/fac8e7d1.html)
+- [Anova](https://www.blog4xiang.world/posts/c7d1b27c.html)
 
 ## 注意事项
 
