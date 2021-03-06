@@ -223,10 +223,25 @@ plot_res_anova <- eventReactive(input$submit_anova,{
         scale_fill_manual(values = fill_cor)
     }
     
-    p = qplot(iris$Sepal.Length)
     
     # 保存图片
-    export::graph2ppt(p, file = './results/res_fig.pptx')
+    filename <- ifelse(input$anova_fig_res_filetype == '.pdf','res_fig.pdf',
+                       ifelse(input$anova_fig_res_filetype == '.png','res_fig.png',
+                              ifelse(input$anova_fig_res_filetype == '.jpg','res_fig.jpg',
+                                     ifelse(input$anova_fig_res_filetype == '.tiff','res_fig.tiff','res_fig.eps'))))
+    
+    if (input$anova_fig_res_filetype == '.pdf') {
+      ggsave(p_anova, 
+             filename = paste('./results/', filename, sep = ''),
+             width = input$anova_fig_wdith,
+             height = input$anova_fig_height,
+             device = cairo_pdf)
+    }else{
+      ggsave(p_anova, 
+             filename = paste('./results/', filename, sep = ''),
+             width = input$anova_fig_wdith,
+             height = input$anova_fig_height)
+    }
   }
   p_anova # 返回图
 })
